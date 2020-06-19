@@ -100,7 +100,7 @@ extension UIApplication {
         }
         
         // prepare config object with project key
-        let config = AlanConfig(key: "af2528090c2f0f15faceb579449bc5142e956eca572e1d8b807a3e2338fdd0dc/stage")
+        let config = AlanConfig(key: "5ca270dbab1b75e79257b6d81473ff382e956eca572e1d8b807a3e2338fdd0dc/stage")
         
         // create Alan button with config
         self.alanButton = AlanButton(config: config)

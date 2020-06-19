@@ -5,10 +5,45 @@
 //  Created by Sergey Yuryev on 02/10/2019.
 //  Copyright © 2019 Alan. All rights reserved.
 //
-
 import UIKit
+import Stripe
 
 class CheckoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    lazy var cardTextField: STPPaymentCardTextField = {
+        let cardTextField = STPPaymentCardTextField()
+        return cardTextField
+    }()
+    lazy var payButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.layer.cornerRadius = 5
+        button.backgroundColor = .systemBlue
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+        button.setTitle("Pay", for: .normal)
+        button.addTarget(self, action: #selector(pay), for: .touchUpInside)
+        return button
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        let stackView = UIStackView(arrangedSubviews: [cardTextField, payButton])
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.leftAnchor.constraint(equalToSystemSpacingAfter: view.leftAnchor, multiplier: 2),
+            view.rightAnchor.constraint(equalToSystemSpacingAfter: stackView.rightAnchor, multiplier: 2),
+            stackView.topAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 1),
+        ])
+    }
+
+    @objc
+    func pay() {
+        print("Checkout Confirmation Screen!")
+    }
+    
     
 
     // MARK: - Outlets
@@ -21,11 +56,6 @@ class CheckoutViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     // MARK: - View lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     
     // MARK: - UITableView
     
@@ -57,3 +87,4 @@ class CheckoutViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
 }
+
