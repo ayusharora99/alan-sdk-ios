@@ -35,12 +35,13 @@ class CheckoutViewController: UIViewController, UITableViewDelegate, UITableView
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalToSystemSpacingAfter: view.leftAnchor, multiplier: 2),
             view.rightAnchor.constraint(equalToSystemSpacingAfter: stackView.rightAnchor, multiplier: 2),
-            stackView.topAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 1),
+            stackView.topAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 50),
         ])
     }
 
     @objc
     func pay() {
+        print("pay!")
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         guard let checkoutConfirmationController =  mainStoryBoard.instantiateViewController(identifier: "CheckoutConfirmation") as? CheckoutConfirmation else{

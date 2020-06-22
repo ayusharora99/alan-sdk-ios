@@ -135,6 +135,7 @@ class ContainerViewController: UIViewController {
                 }
             }
         }
+        
     }
     
     func showMenu() {
@@ -149,6 +150,7 @@ class ContainerViewController: UIViewController {
                 }
             }
         }
+        
     }
     
     func showCategory(_ name: String) {
