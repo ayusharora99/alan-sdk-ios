@@ -11,7 +11,7 @@
         <!--Menu View Controller-->
         <scene sceneID="cEB-HZ-Sdj">
             <objects>
-                <collectionViewController id="75Z-oC-OYC" userLabel="Menu View Controller" customClass="MenuViewController" customModule="Alan_Delivery" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="MenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="75Z-oC-OYC" userLabel="Menu View Controller" customClass="MenuViewController" customModule="Alan_Delivery" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Rk7-7j-Cgc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="730"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,20 +250,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkout Confirmation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojP-gn-4Zn">
-                                <rect key="frame" x="109" y="431" width="198" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Thank you! " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McL-oL-SXO">
+                                <rect key="frame" x="141" y="44" width="132" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We have already started preparing your order." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pwy-qo-y1X">
+                                <rect key="frame" x="20" y="91" width="375" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Checkout" translatesAutoresizingMaskIntoConstraints="NO" id="Fqu-Zz-Dnx">
+                                <rect key="frame" x="64" y="170" width="263" height="351"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="ojP-gn-4Zn" firstAttribute="top" secondItem="E8o-7E-voP" secondAttribute="top" constant="387" id="64G-s9-f9k"/>
-                            <constraint firstItem="E8o-7E-voP" firstAttribute="trailing" secondItem="ojP-gn-4Zn" secondAttribute="trailing" constant="107" id="En2-wx-iHz"/>
-                            <constraint firstItem="ojP-gn-4Zn" firstAttribute="leading" secondItem="E8o-7E-voP" secondAttribute="leading" constant="109" id="hgp-rr-G7W"/>
-                            <constraint firstItem="E8o-7E-voP" firstAttribute="bottom" secondItem="ojP-gn-4Zn" secondAttribute="bottom" constant="399" id="ixj-Ka-riv"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="E8o-7E-voP"/>
                     </view>
                 </viewController>
@@ -358,4 +364,7 @@
             <point key="canvasLocation" x="-1217" y="90"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Checkout" width="526" height="596"/>
+    </resources>
 </document>

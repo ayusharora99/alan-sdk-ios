@@ -22,4 +22,21 @@ class CheckoutConfirmation: UIViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+//    @IBAction func BackToMenu(_ sender: Any) {
+//        let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        
+//        guard let menuViewController =  mainStoryBoard.instantiateViewController(identifier: "MenuViewController") as? MenuViewController else{
+//            print("couldn't find check out confirmation screen :/")
+//            return
+//        }
+//
+//        navigationController?.pushViewController(menuViewController, animated: true)
+//
+//
+//
+//    }
+    
+    
+
 }

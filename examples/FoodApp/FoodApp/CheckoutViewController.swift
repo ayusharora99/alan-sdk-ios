@@ -41,7 +41,18 @@ class CheckoutViewController: UIViewController, UITableViewDelegate, UITableView
 
     @objc
     func pay() {
-        print("Checkout Confirmation Screen!")
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        
+        guard let checkoutConfirmationController =  mainStoryBoard.instantiateViewController(identifier: "CheckoutConfirmation") as? CheckoutConfirmation else{
+            print("couldn't find check out confirmation screen :/")
+            return
+        }
+        
+        
+      //present(checkoutConfirmationController, animated: true, completion: nil)
+        
+      navigationController?.pushViewController(checkoutConfirmationController, animated: true)
+        
     }
     
     

@@ -102,13 +102,13 @@
 				05FCDBDB2343941F0074A5A7 /* ItemViewController.swift */,
 				05FCDBD423437BD90074A5A7 /* ContainerViewController.swift */,
 				0550E6D42344A0D200478872 /* CheckoutManager.swift */,
-				05FCDBDD23439A4F0074A5A7 /* Data.swift */,
+				0F031E48249D738800FC3337 /* CheckoutViewController.swift */,
 				052AA0AE234200320082D8F2 /* Main.storyboard */,
+				0F962FD7249D722B003846ED /* CheckoutConfirmation.swift */,
+				05FCDBDD23439A4F0074A5A7 /* Data.swift */,
 				052AA0B1234200330082D8F2 /* Assets.xcassets */,
 				052AA0B3234200330082D8F2 /* LaunchScreen.storyboard */,
 				052AA0B6234200330082D8F2 /* Info.plist */,
-				0F962FD7249D722B003846ED /* CheckoutConfirmation.swift */,
-				0F031E48249D738800FC3337 /* CheckoutViewController.swift */,
 			);
 			path = FoodApp;
 			sourceTree = "<group>";
