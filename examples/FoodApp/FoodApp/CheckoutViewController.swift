@@ -10,6 +10,11 @@ import Stripe
 
 class CheckoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+
+    @IBOutlet weak var user_address_field: UITextField!
+    @IBOutlet weak var user_date_field: UITextField!
+    @IBOutlet weak var user_time_field: UITextField!
+    
     lazy var cardTextField: STPPaymentCardTextField = {
         let cardTextField = STPPaymentCardTextField()
         return cardTextField
@@ -23,6 +28,16 @@ class CheckoutViewController: UIViewController, UITableViewDelegate, UITableView
         button.addTarget(self, action: #selector(pay), for: .touchUpInside)
         return button
     }()
+    
+    var card_number: String{
+        get{
+            let card_number = cardTextField.cardNumber!
+                return card_number
+            }
+        set(new_card_number){
+            return card_number = new_card_number
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

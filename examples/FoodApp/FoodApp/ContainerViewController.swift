@@ -130,6 +130,7 @@ class ContainerViewController: UIViewController {
                 self.checkoutContainer.alpha = 1
             }) { (finished) in
                 if let cc = self.getCheckoutController() {
+                    //cc.user_address_field.text = address
                     cc.tableView.reloadData()
                     self.updateState()
                 }
@@ -137,7 +138,41 @@ class ContainerViewController: UIViewController {
         }
         
     }
+    func fillAddress(address: String){
+        DispatchQueue.main.async {
+                if let cc = self.getCheckoutController() {
+                    cc.user_address_field.text = address
+                }
+        }
+    }
     
+    func fillDate(date: String){
+        DispatchQueue.main.async {
+                    if let cc = self.getCheckoutController() {
+                        cc.user_date_field.text = date
+                    }
+        }
+    }
+    
+    func fillTime(time: String){
+        DispatchQueue.main.async {
+                    if let cc = self.getCheckoutController() {
+                        cc.user_time_field.text = time
+                    }
+        }
+    }
+    
+    func fillCardNumber(card_number: String){
+        DispatchQueue.main.async {
+                    if let cc = self.getCheckoutController() {
+                        cc.card_number = card_number
+                    }
+        }
+    }
+        
+    
+
+            
     func showMenu() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.25, animations: {
@@ -180,6 +215,7 @@ class ContainerViewController: UIViewController {
             self.showCheckout()
         }
     }
+    
     
     func finishOrder() {
         DispatchQueue.main.async {

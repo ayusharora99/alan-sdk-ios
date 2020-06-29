@@ -101,7 +101,6 @@ extension UIApplication {
         
         // prepare config object with project key
         let config = AlanConfig(key: "5ca270dbab1b75e79257b6d81473ff382e956eca572e1d8b807a3e2338fdd0dc/stage")
-        
         // create Alan button with config
         self.alanButton = AlanButton(config: config)
         
@@ -244,7 +243,68 @@ extension UIApplication {
                 self.finishOrder()
             }
         }
-    }
+        
+        if command == "address" {
+            guard let address = json["address"] as? String else{
+                print("Cant parse address")
+                return
+            }
+            print("the delivery address is " + address)
+            DispatchQueue.main.async {
+                self.address(address: address)
+            }
+        }
+        
+        if command == "date"{
+            guard let date = json["date"] as? String else{
+                print("Can't parse date")
+                return
+            }
+            print("the date is " + date)
+            DispatchQueue.main.async {
+                self.date(date: date)
+            }
+        }
+        if command == "time"{
+            guard let time = json["time"] as? String else{
+                print("Can't parse time")
+                return
+            }
+            print("the time is " + time)
+            DispatchQueue.main.async {
+                self.time(time: time)
+            }
+        }
+        
+        if command == "time_date"{
+            guard let date = json["date"] as? String else{
+                print("Can't parse date")
+                return
+            }
+            guard let time = json["time"] as? String else{
+                print("Can't parse time")
+                return
+            }
+            print("the date is " + date)
+            print("the time is " + time)
+            DispatchQueue.main.async {
+                self.date(date: date)
+                self.time(time: time)
+            }
+            
+        }
+        
+        if command == "card_number"{
+            guard let card_number = json["text"] as? String else{
+                print("Can't parse card number")
+                return
+            }
+            print("the card number is " + card_number)
+            DispatchQueue.main.async {
+                self.card_number(card_number: card_number)
+            }
+        }
+}
        
     
     // MARK: - Commands
@@ -295,6 +355,35 @@ extension UIApplication {
         }
         container.highlight(name: name)
     }
+    
+    fileprivate func address(address: String) {
+        guard let container = self.getRoot() as? ContainerViewController else {
+            return
+        }
+        container.fillAddress(address: address)
+    }
+    
+    fileprivate func date(date: String){
+        guard let container = self.getRoot() as? ContainerViewController else {
+            return
+        }
+        container.fillDate(date: date)
+    }
+    
+    fileprivate func time(time: String){
+        guard let container = self.getRoot() as? ContainerViewController else {
+            return
+        }
+        container.fillTime(time: time)
+    }
+    
+    fileprivate func card_number(card_number: String){
+        guard let container = self.getRoot() as? ContainerViewController else {
+            return
+        }
+        container.fillCardNumber(card_number: card_number)
+    }
+    
 }
 
 
