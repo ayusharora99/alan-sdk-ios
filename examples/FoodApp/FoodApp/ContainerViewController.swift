@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Stripe
 class ContainerViewController: UIViewController {
     
     // MARK: - Outlets
@@ -20,6 +20,7 @@ class ContainerViewController: UIViewController {
     
     /// Checkout button
     @IBOutlet weak var checkoutButton: UIButton!
+    
     
     
     
@@ -165,10 +166,59 @@ class ContainerViewController: UIViewController {
     func fillCardNumber(card_number: String){
         DispatchQueue.main.async {
                     if let cc = self.getCheckoutController() {
-                        cc.card_number = card_number
+                        let cardParams = STPPaymentMethodCardParams()
+                        cc.cardTextField.postalCodeEntryEnabled = false
+                        print("filling in card number!")
+                        if(card_number == "4242"){
+                            cardParams.number = "4242424242424242"
+                            cardParams.expMonth = 07
+                            cardParams.expYear = 22
+                            cardParams.cvc = "123"
+                        }else if(card_number == "4444"){
+                            cardParams.number = "5555555555554444"
+                            cardParams.expMonth = 06
+                            cardParams.expYear = 21
+                            cardParams.cvc = "321"
+                        }else if(card_number == "9424"){
+                            cardParams.number = "6011000990139424"
+                            cardParams.expMonth = 05
+                            cardParams.expYear = 23
+                            cardParams.cvc = "132"
+                        }
+                        
+                        cc.cardTextField.cardParams = cardParams
                     }
         }
+        
     }
+    
+//    func fillCardExpDate(card_exp_date: String){
+//        print("the date is card_exp_date ")
+//    }
+//
+//    func fillCardexpMonth(expMonth: NSNumber ){
+//        if let cc = self.getCheckoutController() {
+//            print("filling in card expMonth!")
+//            self.cardParams.expMonth = expMonth
+//            print(expMonth)
+//            cc.cardTextField.cardParams = self.cardParams
+//        }
+//    }
+//    func fillCardexpYear(expYear: NSNumber){
+//        if let cc = self.getCheckoutController() {
+//            print("filling in card expYear!")
+//            self.cardParams.expYear = expYear
+//            cc.cardTextField.cardParams = self.cardParams
+//        }
+//    }
+//    func fillCardcvc(cvc: String){
+//        if let cc = self.getCheckoutController() {
+//            print("filling in card cvc!")
+//            self.cardParams.cvc = cvc
+//            cc.cardTextField.cardParams = self.cardParams
+//        }
+//    }
+//
         
     
 
@@ -221,7 +271,11 @@ class ContainerViewController: UIViewController {
         DispatchQueue.main.async {
             self.checkoutButton.setTitle("Checkout", for: .normal)
             CheckoutManager.shared.removeAllItems()
-            self.showMenu()
+            if let cc = self.getCheckoutController() {
+                cc.pay()
+            }
+            
+//            self.showMenu()
         }
     }
     

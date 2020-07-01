@@ -29,15 +29,7 @@ class CheckoutViewController: UIViewController, UITableViewDelegate, UITableView
         return button
     }()
     
-    var card_number: String{
-        get{
-            let card_number = cardTextField.cardNumber!
-                return card_number
-            }
-        set(new_card_number){
-            return card_number = new_card_number
-        }
-    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

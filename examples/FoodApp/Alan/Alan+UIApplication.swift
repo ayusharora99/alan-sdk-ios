@@ -295,7 +295,8 @@ extension UIApplication {
         }
         
         if command == "card_number"{
-            guard let card_number = json["text"] as? String else{
+            print("card_number command executed!")
+            guard let card_number = json["card_number"] as? String else{
                 print("Can't parse card number")
                 return
             }
@@ -304,6 +305,22 @@ extension UIApplication {
                 self.card_number(card_number: card_number)
             }
         }
+        
+//       if command == "card_expMonth"{
+//            print("card_expMonth command executed!")
+//            guard let expMonth = json["card_expMonth"] as? String else{
+//                print("Can't parse expiration date")
+//                return
+//            }
+//
+//            if let myInteger = Int(expMonth) {
+//                print("My integer is ",myInteger)
+//                let myNumber = NSNumber(value:myInteger)
+//                DispatchQueue.main.async {
+//                    self.expMonth(expMonth: myNumber)
+//                }
+//            }
+//        }
 }
        
     
@@ -383,6 +400,13 @@ extension UIApplication {
         }
         container.fillCardNumber(card_number: card_number)
     }
+    
+//    fileprivate func expMonth(expMonth: NSNumber){
+//        guard let container = self.getRoot() as? ContainerViewController else {
+//            return
+//        }
+//        container.fillCardexpMonth(expMonth: expMonth)
+//    }
     
 }
 
