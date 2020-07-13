@@ -48,6 +48,7 @@ const ITEM_ALIASES = _.reduce(menu, (a, p) => {
 }, {});
 const ITEMS_INTENT = Object.keys(ITEM_ALIASES).join("|");
 const CATEGORY_LIST = Object.keys(CATEGORY_ALIASES).join("|");
+let address,date,time, card_number;
 intent(`What $(ITEM ${CATEGORY_LIST}) do you have?`, `(Order|get me|add|) $(NUMBER) $(ITEM ${CATEGORY_LIST})`, p => {
     let key = CATEGORY_ALIASES[p.ITEM.value];
     p.play({command: 'showCategory', value: key});
@@ -128,22 +129,65 @@ intent(`that's (all|it)`, '(ready to|) checkout', p => {
     p.play("You can ask me to set the Delivery and Payment details")
 });
 
+
+
+intent(`(set|change|replace) (delivery|) address to $(LOC)`, p => {
+        address = p.LOC.value
+        p.play({command: "address", address: address});
+        p.play("I have set the delivery address to " + address)
+});
+
+
 intent(`(set|change|replace) (delivery|) address`, `(delivery|) address is (not correct|invalid)`,
     p => {
         if (_.isEmpty(p.visual.order)) {
             p.play("Please, add something to your order first");
         } else {
             p.play('What is delivery address?');
-            p.then(address);
+            p.then(fill_address);
             p.then(date_time);
         }
     });
-let address = context(() => {
+let fill_address = context(() => {
     follow('$(LOC)', p => {
-        let address = p.LOC.value
-        p.play("The address is " + address)
+        address = p.LOC.value
         p.play({command: "address", address: address});
+        p.play("Setting Delivery Address to " + address)
     });
+});
+
+intent(`(set|choose|select|change) (delivery|) (time|date) to $(TIME)`, p => {
+            time = p.TIME.value;
+            p.play({command: 'time', time: time});
+            p.play("I have scheduled it to be delivered at " + time)
+});
+
+
+intent(`(set|choose|select|change) (delivery|) (time|date) to $(T now|asap|right now|as soon as possible)`, p =>{
+    date = api.moment().tz(p.timeZone).format("MMMM Do");
+    time = api.moment().tz(p.timeZone).add(30, 'minutes').format("h:mm a");
+    p.play({command: "time_date", time: time, date: date});
+    p.play("I have scheduled it to be delivered on" + date + "at " + time)
+});
+
+intent(`(set|choose|select|change) (delivery|) (time|date) to $(DATE)`, p => {
+    date = p.DATE.moment.format("MMMM Do");
+    p.play({command: 'date', date: date});
+    p.play("I have scheduled it to be delivered on" + date)
+});
+
+intent(`(set|choose|select|change) (delivery|) (time|date) to $(TIME) $(DATE)`, p => {
+    time = p.TIME.value;
+    date = p.DATE.moment.format("MMMM Do");
+    p.play({command: "time_date", time: time, date: date});
+    p.play("I have scheduled it to be delivered on " + date + "at" + time)
+});
+
+intent(`(set|choose|select|change) (delivery|) (time|date) to $(DATE) $(TIME)`, p => {
+    time = p.TIME.value;
+    date = p.DATE.moment.format("MMMM Do");
+    p.play({command: "time_date", time: time, date: date});
+    p.play("I have scheduled it to be delivered on " + date + "at" + time)
 });
 
 intent(`(Let's|) (set|choose|select|change) (delivery|) (time|date)`, `(delivery|) (date|time) is (not correct|invalid)`,
@@ -183,9 +227,17 @@ let date_time = context(() => {
         });
 });                
      
-let card_number = context(() => {
+intent(`(set|change|replace) credit card number to the card ending in $(NUMBER)`, p => {
+        card_number = p.NUMBER.value
+        p.play("I'll add the payment details for your card ending in " + card_number)
+        p.play({command: "card_number", card_number: card_number});
+        return card_number
+});
+
+
+let fill_card_number = context(() => {
     follow('$(NUMBER)', async p => {
-        let card_number = p.NUMBER.value
+        card_number = p.NUMBER.value
         p.play("I'll add the payment details for your card ending in " + card_number)
         p.play({command: "card_number", card_number: card_number});
         return card_number
@@ -193,13 +245,13 @@ let card_number = context(() => {
 });
 
 
-intent(`(Let's|) (set|choose|select|change) (payement|) (details|info)`,
+intent(`(Let's|) (set|choose|select|change) (payement|credit card) (details|info|number)`,
      p => {
         if (_.isEmpty(p.visual.order)) {
             p.play("Please, add something to your order first");
         }else{
             p.play("What are the last 4 digits of your credit card number?");
-            p.then(card_number);
+            p.then(fill_card_number);
             
         }
     });
@@ -224,11 +276,49 @@ let card_exp_date = context(() => {
     });
 });
 
-
+intent(`Deliver to $(LOC) (at|on|) $(DATE)`,`Deliver to $(LOC) $(T now|asap|right now|as soon as possible)`,
+    `Deliver to $(LOC) (at|on|) $(DATE) (at|on|) $(TIME)`, p=>{
+   if(p.LOC && p.DATE && p.TIME){
+       address = p.LOC.value
+       p.play({command: "address", address: address});
+       time = p.TIME.value;
+       date = p.DATE.moment.format("MMMM Do");
+       p.play({command: "time_date", time: time, date: date});
+       p.play("I have scheduled your order to be delivered to " + address + "on" + date + " at " + time)
+   }else if (p.LOC && p.T){
+       address = p.LOC.value
+       p.play({command: "address", address: address});
+       date = api.moment().tz(p.timeZone).format("MMMM Do");
+       time = api.moment().tz(p.timeZone).add(30, 'minutes').format("h:mm a");
+       p.play({command: "time_date", time: time, date: date});
+       p.play("I have scheduled your order to be delivered to " + address + "on" + date + " at " + time)
+   }else if(p.LOC && p.DATE){
+       address = p.LOC.value
+       p.play({command: "address", address: address});
+       date = p.DATE.moment.format("MMMM Do");
+       p.play({command: 'date', date: date});
+       p.play("I have scheduled your order to be delivered to " + address + " on " + date)
+   }
+});
 
 intent(`finish (order|)`, p => {
-    p.play({command: "finishOrder"});
-    p.play("Thank you! We have already started preparing your order ")
+    if (_.isEmpty(address) || _.isEmpty(date) || _.isEmpty(time)) {
+        p.play("Please, set the delivery details first");
+        if(_.isEmpty(address)){
+            p.play("You are missing the delivery address");
+        }
+        if(_.isEmpty(date)){
+            p.play("You are missing the delivery date");
+        }
+        if(_.isEmpty(time)){
+            p.play("You are missing the delivery time");
+        }
+   }else if(_.isEmpty(card_number)){
+        p.play("You are missing the credit card details");
+   }else{
+        p.play({command: "finishOrder"});
+        p.play("Thank you! We have already started preparing your order ");
+     }
 });
 intent(`how to (make an|) order`, `Give me an (order|) example`,
     reply("Choose food category and add items from menu to order. For example, you can say:" +

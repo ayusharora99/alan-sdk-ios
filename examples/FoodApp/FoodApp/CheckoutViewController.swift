@@ -10,6 +10,7 @@ import Stripe
 
 class CheckoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    
 
     @IBOutlet weak var user_address_field: UITextField!
     @IBOutlet weak var user_date_field: UITextField!
@@ -34,15 +35,28 @@ class CheckoutViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let stackView = UIStackView(arrangedSubviews: [cardTextField, payButton])
+//        let texts = UIStackView(arrangedSubviews: [user_address_field, user_date_field, user_time_field])
+        let stackView = UIStackView(arrangedSubviews: [ cardTextField, payButton])
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.clipsToBounds = true
         view.addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.leftAnchor.constraint(equalToSystemSpacingAfter: view.leftAnchor, multiplier: 2),
-            view.rightAnchor.constraint(equalToSystemSpacingAfter: stackView.rightAnchor, multiplier: 2),
-            stackView.topAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 50),
+//            user_address_field.topAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 1),
+//            user_address_field.rightAnchor.constraint(equalToSystemSpacingAfter: tableView.rightAnchor, multiplier: 1),
+//            stackView.topAnchor.constraint(equalToSystemSpacingBelow: user_time_field.bottomAnchor, multiplier: 3),
+//            stackView.leftAnchor.constraint(equalToSystemSpacingAfter: view.leftAnchor, multiplier: 1)
+            
+//            stackView.leftAnchor.constraint(equalToSystemSpacingAfter: view.leftAnchor, multiplier: 2),
+//            stackView.rightAnchor.constraint(equalToSystemSpacingAfter: view.rightAnchor, multiplier: 2),
+//            view.rightAnchor.constraint(equalToSystemSpacingAfter: stackView.rightAnchor, multiplier: 2),
+//
+//
+//            stackView.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 50),
+        stackView.leftAnchor.constraint(equalToSystemSpacingAfter: view.leftAnchor, multiplier: 2),
+        view.rightAnchor.constraint(equalToSystemSpacingAfter: stackView.rightAnchor, multiplier: 2),
+        stackView.topAnchor.constraint(equalToSystemSpacingBelow: tableView.bottomAnchor, multiplier: 50),
         ])
     }
 

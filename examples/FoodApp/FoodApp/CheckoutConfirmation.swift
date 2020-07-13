@@ -13,6 +13,26 @@ import UIKit
 import Stripe
 
 class CheckoutConfirmation: UIViewController{
+    fileprivate func getRoot() -> UIViewController? {
+        guard let window = UIApplication.shared.windows.first else {
+            return nil
+        }
+        guard let root = window.rootViewController else {
+            return nil
+        }
+        return root
+    }
+
+    @IBAction func back_to_menu(_ sender: Any) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.25, animations: {
+                guard let container = self.getRoot() as? ContainerViewController else {
+                           return
+                }
+                container.showMenu()
+            })
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

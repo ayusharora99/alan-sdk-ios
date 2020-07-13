@@ -238,6 +238,12 @@ class ContainerViewController: UIViewController {
         
     }
     
+    func pay(){
+        if let cc = self.getCheckoutController() {
+            cc.pay()
+        }
+    }
+    
     func showCategory(_ name: String) {
         var shouldUpdate = true
         if let ic = self.getItemController() {
@@ -271,11 +277,11 @@ class ContainerViewController: UIViewController {
         DispatchQueue.main.async {
             self.checkoutButton.setTitle("Checkout", for: .normal)
             CheckoutManager.shared.removeAllItems()
-            if let cc = self.getCheckoutController() {
-                cc.pay()
-            }
+//            if let cc = self.getCheckoutController() {
+//                cc.pay()
+//            }
             
-//            self.showMenu()
+            self.showMenu()
         }
     }
     

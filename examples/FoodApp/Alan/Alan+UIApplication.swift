@@ -349,7 +349,8 @@ extension UIApplication {
         guard let container = self.getRoot() as? ContainerViewController else {
             return
         }
-        container.finishOrder()
+        print("going to pay")
+        container.pay()
     }
     
     fileprivate func showMenu() {
